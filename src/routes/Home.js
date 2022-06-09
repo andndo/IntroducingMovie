@@ -20,30 +20,37 @@ function Home() {
 
   return (
     <>
-      <div>
+      <S.Main>
         {loading ? (
-          <h1>Loading...</h1>
+          <S.loder>
+            <h1>Loading...</h1>
+          </S.loder>
         ) : (
-          <S.Main>
+          <S.movies>
             {movies.map((movie) => (
-              <div key={movie.id}>
-                <img src={movie.medium_cover_image} />
+              <S.movie key={movie.id}>
+                <S.movie__img src={movie.medium_cover_image} />
                 <h2>
                   <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
                 </h2>
-                <p>{movie.summary}</p>
+                <S.movie__year>{movie.year}</S.movie__year>
+                <p>
+                  {movie.summary.length > 245
+                    ? `${movie.summary.slice(0, 245)}...`
+                    : movie.summary}
+                </p>
                 {movie.hasOwnProperty("genres") ? (
-                  <ul>
+                  <S.movie__genres>
                     {movie.genres.map((g) => (
                       <li key={g}>{g}</li>
                     ))}
-                  </ul>
+                  </S.movie__genres>
                 ) : null}
-              </div>
+              </S.movie>
             ))}
-          </S.Main>
+          </S.movies>
         )}
-      </div>
+      </S.Main>
     </>
   );
 }
